@@ -1,14 +1,45 @@
 
 def log_in():
-    user_name = input("Please enter your username: ")
-    user_pw = input("Please enter your password: ")
+    print("LOGIN")
+    while True:
+        user_name = input("Please enter your username: ")
+        user_pw = input("Please enter your password: ")
+    
+        with open("db.txt") as f:
+            if user_name and user_pw in f.read():
+                #code here to check if he's admin or customer
+                break
+            else:
+                print("Wrong username or password, please try again.")
     # two types of log in:
     # 1) admin/staff user (closed for new accounts)
     # 2) customers (open for new accounts)
 
 def register():
-    # sign up/new account for customers
+    print("REGISTER")
+    user_name = input("Please enter your username: ")
+    user_pw = input("Please enter your password: ")
+    db = open("db.txt","a+")
+    tb = (user_name, user_pw)
+    db.write(str(tb))
+    print("Successfully Registered")
 
+def menu():
+    print("SALES INVENTORY SYSTEM")
+    print("[1]Login\n[2]Register")
+    m = int(input("Choice:\t"))
+    while True:
+        if m == 1:
+            log_in()
+            break
+        elif m == 2:
+            register()
+            log_in()
+            break
+        else:
+            print("Wrong input. Try again")    
+menu()
+            
 class Product:
     def __init__(self, prod_name, prod_price, prod_qntty):
         self.prod_name = prod_name
