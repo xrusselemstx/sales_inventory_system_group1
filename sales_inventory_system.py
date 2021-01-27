@@ -1,32 +1,35 @@
 admin_name = "admin"
 admin_pw = "password"
-def log_in():
-    print("LOGIN")
-    while True:
-        user_name = input("Please enter your username: ")
-        user_pw = input("Please enter your password: ")
-    
-        with open("db.txt") as f:
-            if user_name and user_pw in f.read():
-                if user_name == admin_name:
-                    goto Admin()
-                else:
-                    goto Customer()
-                break
-            else:
-                print("Wrong username or password, please try again.")
-    # two types of log in:
-    # 1) admin/staff user (closed for new accounts)
-    # 2) customers (open for new accounts)
+uname = []
+pw = []
 
 def register():
     print("REGISTER")
     user_name = input("Please enter your username: ")
     user_pw = input("Please enter your password: ")
-    db = open("db.txt","a+")
-    tb = (user_name, user_pw)
-    db.write(str(tb))
+    uname.append(user_name)
+    pw.append(user_pw)
     print("Successfully Registered")
+
+def log_in():
+    print("LOGIN")
+    while True:
+        user_name = input("Please enter your username: ")
+        user_pw = input("Please enter your password: ")
+        if user_name == admin_name:
+            print("Successfully Logged in as Admin")
+            break
+        else:
+            for i in range (0, len(uname)):
+                if user_name == uname[i] and user_pw == pw[i]:
+                    print("Successfully Logged in as Customer")
+                    break
+                else:
+                    print("Wrong username or password. Try again")
+                    
+    # two types of log in:
+    # 1) admin/staff user (closed for new accounts)
+    # 2) customers (open for new accounts)
 
 def menu():
     print("SALES INVENTORY SYSTEM")
