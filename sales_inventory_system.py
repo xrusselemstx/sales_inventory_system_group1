@@ -1,4 +1,5 @@
-
+admin_name = "admin"
+admin_pw = "password"
 def log_in():
     print("LOGIN")
     while True:
@@ -7,7 +8,10 @@ def log_in():
     
         with open("db.txt") as f:
             if user_name and user_pw in f.read():
-                #code here to check if he's admin or customer
+                if user_name == admin_name:
+                    goto Admin()
+                else:
+                    goto Customer()
                 break
             else:
                 print("Wrong username or password, please try again.")
